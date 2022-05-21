@@ -1,0 +1,11 @@
+FROM node:16
+
+EXPOSE 5000
+
+RUN apt update && apt install git && git clone https://github.com/docker-hy/material-applications.git
+
+WORKDIR /material-applications/example-frontend
+
+RUN npm install && REACT_APP_BACKEND_URL=http://localhost:8080/ npm run build && npm install -g serve
+
+CMD serve -s -l 5000 build
