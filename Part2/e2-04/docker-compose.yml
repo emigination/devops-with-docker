@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  front-end:
+    build:
+      context: ../../Part1/e1-14/
+      dockerfile: Dockerfile_front
+    ports:
+      - "5000:5000"
+  back-end:
+    build:
+      context: ../../Part1/e1-14/
+      dockerfile: Dockerfile_back
+    ports:
+      - "8080:8080"
+    environment:
+      - REDIS_HOST=redis
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
