@@ -1,0 +1,11 @@
+FROM golang:1.16
+
+EXPOSE 8080
+
+RUN apt update && apt install git && git clone https://github.com/docker-hy/material-applications.git && useradd -m appuser && chown -R appuser /go/material-applications/example-backend && apt-get purge -y --auto-remove curl git && rm -rf /var/lib/apt/lists/* && cd /go/material-applications/example-backend && go build
+
+USER appuser
+
+WORKDIR /go/material-applications/example-backend
+
+CMD REQUEST_ORIGIN=http://localhost:5000 ./server
